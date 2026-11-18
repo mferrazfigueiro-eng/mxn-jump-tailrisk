@@ -3,6 +3,10 @@
 Replication package for the article by **Michele Ferraz Figueiró** (Tecnológico de Monterrey),
 submitted to *Applied Stochastic Models in Business and Industry*.
 
+[![DOI](https://zenodo.org/badge/1463251227.svg)](https://doi.org/10.5281/zenodo.24353202)
+
+Repository: <https://github.com/mferrazfigueiro-eng/mxn-jump-tailrisk> · Archived version: <https://doi.org/10.5281/zenodo.24353202>
+
 One command reproduces every number, table and figure in the paper from the raw FRED file:
 
 ```bash
@@ -96,8 +100,7 @@ tables, figures and numbers from the saved results. A report is written to
 
 ## Citation
 
-See `CITATION.cff`. Please cite the article and this package (Zenodo DOI to be added on
-publication).
+See `CITATION.cff`. Please cite the article and this package (DOI 10.5281/zenodo.24353202).
 
 ## License
 

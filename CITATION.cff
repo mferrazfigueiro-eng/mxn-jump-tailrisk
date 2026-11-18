@@ -9,4 +9,5 @@ authors:
 version: "1.0.0"
 date-released: "2026-11-15"
 license: MIT
-# After depositing on Zenodo, add:  doi: "10.5281/zenodo.XXXXXXX"
+repository-code: "https://github.com/mferrazfigueiro-eng/mxn-jump-tailrisk"
+doi: "10.5281/zenodo.24353202"
