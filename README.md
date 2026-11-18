@@ -1,6 +1,6 @@
 # Jumps or Asymmetric Tails? Lévy Jump-Diffusion Models and the Tail Risk of the Mexican Peso
 
-Replication package for the article by **Michele Ferraz Figueiró** (Tecnológico de Monterrey),
+Replication package for the article by **Michele Ferraz Figueiró** (Instituto Tecnológico y de Estudios Superiores de Monterrey),
 submitted to *Applied Stochastic Models in Business and Industry*.
 
 [![DOI](https://zenodo.org/badge/1463251227.svg)](https://doi.org/10.5281/zenodo.24353202)
