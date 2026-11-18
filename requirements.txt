@@ -1,0 +1,11 @@
+# Versions used to produce the published results (Python 3.13).
+numpy==2.5.3
+scipy==1.18.1
+pandas==3.0.5
+statsmodels==0.15.0
+matplotlib==3.11.2
+numba==0.68.1
+arch==9.0.0
+jupyterlab
+nbconvert
+pytest

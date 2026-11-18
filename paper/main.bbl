@@ -1,0 +1,211 @@
+\begin{thebibliography}{33}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Merton(1976)]{merton1976}
+Robert~C. Merton.
+\newblock Option pricing when underlying stock returns are discontinuous.
+\newblock \emph{Journal of Financial Economics}, 3\penalty0 (1--2):\penalty0
+  125--144, 1976.
+
+\bibitem[Kou(2002)]{kou2002}
+Steven~G. Kou.
+\newblock A jump-diffusion model for option pricing.
+\newblock \emph{Management Science}, 48\penalty0 (8):\penalty0 1086--1101,
+  2002.
+
+\bibitem[Cont and Tankov(2004)]{conttankov2004}
+Rama Cont and Peter Tankov.
+\newblock \emph{Financial Modelling with Jump Processes}.
+\newblock Chapman \& Hall/CRC, Boca Raton, 2004.
+
+\bibitem[Jorion(1988)]{jorion1988}
+Philippe Jorion.
+\newblock On jump processes in the foreign exchange and stock markets.
+\newblock \emph{Review of Financial Studies}, 1\penalty0 (4):\penalty0
+  427--445, 1988.
+
+\bibitem[Bates(1996)]{bates1996}
+David~S. Bates.
+\newblock Jumps and stochastic volatility: exchange rate processes implicit in
+  {Deutsche} mark options.
+\newblock \emph{Review of Financial Studies}, 9\penalty0 (1):\penalty0 69--107,
+  1996.
+
+\bibitem[Engle(1982)]{engle1982}
+Robert~F. Engle.
+\newblock Autoregressive conditional heteroscedasticity with estimates of the
+  variance of {United Kingdom} inflation.
+\newblock \emph{Econometrica}, 50\penalty0 (4):\penalty0 987--1007, 1982.
+
+\bibitem[Bollerslev(1986)]{bollerslev1986}
+Tim Bollerslev.
+\newblock Generalized autoregressive conditional heteroskedasticity.
+\newblock \emph{Journal of Econometrics}, 31\penalty0 (3):\penalty0 307--327,
+  1986.
+
+\bibitem[Hansen(1994)]{hansen1994}
+Bruce~E. Hansen.
+\newblock Autoregressive conditional density estimation.
+\newblock \emph{International Economic Review}, 35\penalty0 (3):\penalty0
+  705--730, 1994.
+
+\bibitem[Gneiting and Raftery(2007)]{gneitingraftery2007}
+Tilmann Gneiting and Adrian~E. Raftery.
+\newblock Strictly proper scoring rules, prediction, and estimation.
+\newblock \emph{Journal of the American Statistical Association}, 102\penalty0
+  (477):\penalty0 359--378, 2007.
+
+\bibitem[Fissler and Ziegel(2016)]{fisslerziegel2016}
+Tobias Fissler and Johanna~F. Ziegel.
+\newblock Higher order elicitability and {Osband}'s principle.
+\newblock \emph{Annals of Statistics}, 44\penalty0 (4):\penalty0 1680--1707,
+  2016.
+
+\bibitem[Patton et~al.(2019)Patton, Ziegel, and Chen]{pattonziegelchen2019}
+Andrew~J. Patton, Johanna~F. Ziegel, and Rui Chen.
+\newblock Dynamic semiparametric models for expected shortfall (and
+  {Value-at-Risk}).
+\newblock \emph{Journal of Econometrics}, 211\penalty0 (2):\penalty0 388--413,
+  2019.
+
+\bibitem[Kupiec(1995)]{kupiec1995}
+Paul~H. Kupiec.
+\newblock Techniques for verifying the accuracy of risk measurement models.
+\newblock \emph{Journal of Derivatives}, 3\penalty0 (2):\penalty0 73--84, 1995.
+
+\bibitem[Christoffersen(1998)]{christoffersen1998}
+Peter~F. Christoffersen.
+\newblock Evaluating interval forecasts.
+\newblock \emph{International Economic Review}, 39\penalty0 (4):\penalty0
+  841--862, 1998.
+
+\bibitem[Du and Escanciano(2017)]{duescanciano2017}
+Zaichao Du and Juan~Carlos Escanciano.
+\newblock Backtesting expected shortfall: accounting for tail risk.
+\newblock \emph{Management Science}, 63\penalty0 (4):\penalty0 940--958, 2017.
+
+\bibitem[Diebold and Mariano(1995)]{dieboldmariano1995}
+Francis~X. Diebold and Roberto~S. Mariano.
+\newblock Comparing predictive accuracy.
+\newblock \emph{Journal of Business \& Economic Statistics}, 13\penalty0
+  (3):\penalty0 253--263, 1995.
+
+\bibitem[Hansen et~al.(2011)Hansen, Lunde, and Nason]{hansenlundenason2011}
+Peter~R. Hansen, Asger Lunde, and James~M. Nason.
+\newblock The model confidence set.
+\newblock \emph{Econometrica}, 79\penalty0 (2):\penalty0 453--497, 2011.
+
+\bibitem[Sato(1999)]{sato1999}
+Ken-iti Sato.
+\newblock \emph{L\'evy Processes and Infinitely Divisible Distributions}.
+\newblock Cambridge University Press, Cambridge, 1999.
+
+\bibitem[Ball and Torous(1983)]{balltorous1983}
+Clifford~A. Ball and Walter~N. Torous.
+\newblock A simplified jump process for common stock returns.
+\newblock \emph{Journal of Financial and Quantitative Analysis}, 18\penalty0
+  (1):\penalty0 53--65, 1983.
+
+\bibitem[Chan and Maheu(2002)]{chanmaheu2002}
+Wing~H. Chan and John~M. Maheu.
+\newblock Conditional jump dynamics in stock market returns.
+\newblock \emph{Journal of Business \& Economic Statistics}, 20\penalty0
+  (3):\penalty0 377--389, 2002.
+
+\bibitem[Maheu and McCurdy(2004)]{maheumccurdy2004}
+John~M. Maheu and Thomas~H. McCurdy.
+\newblock News arrival, jump dynamics, and volatility components for individual
+  stock returns.
+\newblock \emph{Journal of Finance}, 59\penalty0 (2):\penalty0 755--793, 2004.
+
+\bibitem[Varma(1999)]{varma1999}
+Jayanth~R. Varma.
+\newblock Rupee-dollar option pricing and risk measurement: jump processes,
+  changing volatility and kurtosis shifts.
+\newblock Working paper, Indian Institute of Management Ahmedabad, 1999.
+
+\bibitem[Serdenge\c{c}ti et~al.(2021)Serdenge\c{c}ti, Sensoy, and
+  Nguyen]{serdengecti2021}
+S\"uleyman Serdenge\c{c}ti, Ahmet Sensoy, and Duc~Khuong Nguyen.
+\newblock Dynamics of return and liquidity (co)jumps in emerging foreign
+  exchange markets.
+\newblock \emph{Journal of International Financial Markets, Institutions and
+  Money}, 73, 2021.
+
+\bibitem[Uzun et~al.(2023)Uzun, Sensoy, and Nguyen]{uzun2023}
+S.~Uzun, Ahmet Sensoy, and Duc~Khuong Nguyen.
+\newblock Jump forecasting in foreign exchange markets: a high-frequency
+  analysis.
+\newblock \emph{Journal of Forecasting}, 42\penalty0 (3):\penalty0 578--624,
+  2023.
+
+\bibitem[Lee and Mykland(2008)]{leemykland2008}
+Suzanne~S. Lee and Per~A. Mykland.
+\newblock Jumps in financial markets: a new nonparametric test and jump
+  dynamics.
+\newblock \emph{Review of Financial Studies}, 21\penalty0 (6):\penalty0
+  2535--2563, 2008.
+
+\bibitem[Novak et~al.(2007)Novak, Dalla, and Giraitis]{novak2007}
+Serguei~Y. Novak, Violetta Dalla, and Liudas Giraitis.
+\newblock Evaluating currency risk in emerging markets.
+\newblock \emph{Acta Applicandae Mathematicae}, 97:\penalty0 163--175, 2007.
+
+\bibitem[de~Jes\'us~Guti\'errez and Ortiz(2013)]{gutierrezortiz2013}
+Ra\'ul de~Jes\'us~Guti\'errez and Edgar Ortiz.
+\newblock El efecto de la volatilidad del peso mexicano en los rendimientos y
+  riesgo de la {Bolsa Mexicana de Valores}.
+\newblock \emph{Contadur\'ia y Administraci\'on}, 58\penalty0 (3):\penalty0
+  89--119, 2013.
+
+\bibitem[Rodr\'iguez-Aguilar et~al.(2014)Rodr\'iguez-Aguilar, Cruz-Ak\'e, and
+  Venegas-Mart\'inez]{rodriguez2014}
+Rom\'an Rodr\'iguez-Aguilar, Salvador Cruz-Ak\'e, and Francisco
+  Venegas-Mart\'inez.
+\newblock A measure of early warning of exchange-rate crises based on the
+  {Hurst} coefficient and the alpha-stable parameter.
+\newblock MPRA Paper 59046, University Library of Munich, 2014.
+
+\bibitem[{Board of Governors of the Federal Reserve System (US)}(2026)]{fred}
+{Board of Governors of the Federal Reserve System (US)}.
+\newblock Mexican pesos to {U.S.} dollar spot exchange rate [{DEXMXUS}].
+\newblock FRED, Federal Reserve Bank of St. Louis,
+  \url{https://fred.stlouisfed.org/series/DEXMXUS}, 2026.
+\newblock Accessed 24 October 2026.
+
+\bibitem[Bollerslev(1987)]{bollerslev1987}
+Tim Bollerslev.
+\newblock A conditionally heteroskedastic time series model for speculative
+  prices and rates of return.
+\newblock \emph{Review of Economics and Statistics}, 69\penalty0 (3):\penalty0
+  542--547, 1987.
+
+\bibitem[Bollerslev and Wooldridge(1992)]{bollerslevwooldridge1992}
+Tim Bollerslev and Jeffrey~M. Wooldridge.
+\newblock Quasi-maximum likelihood estimation and inference in dynamic models
+  with time-varying covariances.
+\newblock \emph{Econometric Reviews}, 11\penalty0 (2):\penalty0 143--172, 1992.
+
+\bibitem[Rockafellar and Uryasev(2002)]{rockafellaruryasev2002}
+R.~Tyrrell Rockafellar and Stanislav Uryasev.
+\newblock Conditional value-at-risk for general loss distributions.
+\newblock \emph{Journal of Banking \& Finance}, 26\penalty0 (7):\penalty0
+  1443--1471, 2002.
+
+\bibitem[Newey and West(1987)]{neweywest1987}
+Whitney~K. Newey and Kenneth~D. West.
+\newblock A simple, positive semi-definite, heteroskedasticity and
+  autocorrelation consistent covariance matrix.
+\newblock \emph{Econometrica}, 55\penalty0 (3):\penalty0 703--708, 1987.
+
+\bibitem[Politis and Romano(1994)]{politisromano1994}
+Dimitris~N. Politis and Joseph~P. Romano.
+\newblock The stationary bootstrap.
+\newblock \emph{Journal of the American Statistical Association}, 89\penalty0
+  (428):\penalty0 1303--1313, 1994.
+
+\end{thebibliography}

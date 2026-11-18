@@ -1,0 +1,11 @@
+Table~\ref{tab:robust} repeats the evaluation for three alternative designs, always on the same \oosN{} out-of-sample days: a shorter rolling window of 1,000 returns; weekly instead of monthly re-estimation; and an expanding window that starts in November 1993 and therefore contains the end of the exchange-rate band and the 1994--95 crisis, re-estimated every 63 returns. The last design is close to that of an earlier version of this study.
+
+\begin{table}[t]
+\centering\small
+\caption{Robustness of the out-of-sample comparison to the estimation design. NLS: mean negative log score (bold: lowest). Exc.\ 99\%: exceedances of the 99\% VaR (expected \expNinetyNine). FZ0 99\%: mean joint VaR--ES loss at the 99\% level.}\label{tab:robust}
+\resizebox{\linewidth}{!}{\input{tables/tab_robust.tex}}
+\end{table}
+
+The ranking of the GARCH models does not depend on the window length or the re-estimation frequency. In every design GARCH-skew-$t$ has the lowest log score and the lowest 99\% FZ0 loss, GARCH-$t$ has too many 99\% exceedances (between \excNNGarchT{} and \robExcWindowOneZeroZeroZeroGarchT), and the jump-GARCH models reduce the number of exceedances without improving the scores.
+
+Including the 1994--95 observations changes the results for the models with independent increments, and reproduces the problem that motivated this redesign. Estimated on the expanding sample, the i.i.d.\ Merton model fits its jump component to the crisis, with jump standard deviations of up to 3\%, and produces a 99\% VaR that is exceeded only \robExcExpandingOneNineNineThreeMerton{} times, against \expNinetyNine{} expected; at the same time its 95\% VaR is exceeded far too often. So a 99\% VaR that looks conservative is not evidence of good calibration here. It comes from one historical episode. GARCH models are much less affected, because their conditional variance absorbs the crisis, and their ranking is unchanged.

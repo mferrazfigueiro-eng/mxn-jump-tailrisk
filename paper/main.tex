@@ -1,0 +1,254 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black,pdftitle={Jumps or Asymmetric Tails? Levy Jump-Diffusion Models and the Tail Risk of the Mexican Peso},pdfauthor={Michele Ferraz Figueiro}]{hyperref}
+\usepackage{setspace}
+\usepackage{seqsplit} % lets the long SHA-256 checksum break across lines
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+\setstretch{1.15}
+
+\input{numbers.tex}
+% Text the author must confirm before submission is shown in orange.
+\newcommand{\authorcheck}[1]{\textcolor{orange!85!black}{#1}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\VaR}{\mathrm{VaR}}
+\newcommand{\ES}{\mathrm{ES}}
+
+\title{Jumps or Asymmetric Tails? Lévy Jump-Diffusion Models and the Tail Risk of the Mexican Peso}
+\author{Michele Ferraz Figueiró\\[2pt]
+\small Tecnológico de Monterrey, Monterrey, Mexico\\
+\small \texttt{mferrazfigueiro@tec.mx} \quad ORCID 0000-0002-6996-0048}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+We ask whether Lévy jump components improve daily density and tail-risk forecasts for the Mexican peso against the U.S.\ dollar, and whether any improvement reflects jumps or simply a heavier depreciation tail. Using \nMain{} daily log changes from January 1996 to October 2026, we compare eight models estimated by maximum likelihood: Gaussian, Student-$t$, Merton and Kou models with independent increments, and GARCH(1,1) models with Student-$t$, Hansen skewed-$t$, Merton-jump and Kou-jump innovations. Forecasts for \oosN{} days are produced with a rolling window and evaluated with log scores, the joint VaR--ES loss of Fissler and Ziegel, coverage and Expected Shortfall backtests, Diebold--Mariano tests and the Model Confidence Set. Volatility clustering dominates: every GARCH model beats every model with independent increments. A symmetric GARCH-$t$ model under-predicts depreciation risk (\excNNGarchT{} exceedances of the 99\% VaR against \expNinetyNine{} expected). Adding Merton or Kou jumps repairs this calibration (\excNNGarchMerton{} and \excNNGarchKou{} exceedances) because the estimated jumps are predominantly upward, but the jumps do not improve log scores or VaR--ES losses. A GARCH model with skewed-$t$ innovations obtains the best scores, passes all 99\% backtests and is the only model in the Model Confidence Set for the log score and the 95\% VaR--ES loss. Calibrated Monte Carlo experiments show that the two mechanisms can be told apart in samples of this length, and that the empirical ranking is the one expected when returns follow a skewed-$t$ GARCH process without jumps; jump parameters, by contrast, are imprecisely estimated. For risk managers exposed to the peso, modelling the asymmetry of the depreciation tail matters more than modelling jumps.
+\end{abstract}
+
+\noindent\textbf{Keywords:} exchange-rate risk; jump diffusion; Lévy processes; Expected Shortfall; forecast evaluation; skewed Student-$t$; Mexican peso.\\
+\noindent\textbf{JEL:} C22; C52; C53; F31; G17; G32.
+
+\section{Introduction}
+
+Sudden depreciations of emerging-market currencies are costly for importers, firms with dollar debt, banks and central banks. The Mexican peso is one of the most traded emerging-market currencies and has repeatedly experienced abrupt moves: after the 2008 Lehman failure, after the 2016 U.S.\ presidential election, during the COVID-19 shock of March 2020 and around the 2024 Mexican election and judicial reform. Such episodes motivate models in which the exchange rate follows a Lévy process with a jump component \citep{merton1976,kou2002,conttankov2004}. Jumps are a natural description of discontinuous news, and jump-diffusion models for exchange rates have a long history \citep{jorion1988,bates1996}.
+
+Whether jumps improve \emph{forecasts} of tail risk is a different question. Daily returns also display volatility clustering, which produces heavy unconditional tails without any discontinuity \citep{engle1982,bollerslev1986}; and the peso's distribution is asymmetric, with larger depreciations than appreciations. A jump component may therefore improve forecasts for any of three reasons: because there are genuine jumps, because it proxies for missing volatility dynamics, or because it adds skewness. These explanations have different implications for risk management, yet in empirical work they are rarely separated.
+
+This paper separates them for the USD/MXN exchange rate. We estimate eight models by maximum likelihood: Gaussian, Student-$t$, Merton and Kou models with independent and identically distributed increments; and GARCH(1,1) models whose innovations are Student-$t$, Hansen skewed-$t$ \citep{hansen1994}, Merton jumps or Kou jumps. The skewed-$t$ GARCH model is the control that matters most here, because its conditional tail is asymmetric but it has no jumps. Forecasts are evaluated out of sample with strictly proper scoring rules for densities \citep{gneitingraftery2007} and for the pair (VaR, ES) \citep{fisslerziegel2016,pattonziegelchen2019}, conventional coverage tests \citep{kupiec1995,christoffersen1998}, the Expected Shortfall backtests of \citet{duescanciano2017}, Diebold--Mariano tests \citep{dieboldmariano1995} and the Model Confidence Set \citep{hansenlundenason2011}.
+
+The paper makes three contributions. First, it provides a systematic out-of-sample comparison of Lévy jump-diffusion models for peso tail risk over 25 years that include five recognisable stress episodes, using modern joint VaR--ES evaluation. Second, it shows that the apparent benefit of jumps is an asymmetry effect: jump-GARCH models fix the under-coverage of a symmetric GARCH-$t$ model because the estimated jumps are mostly upward, and a skewed-$t$ GARCH model with fewer parameters achieves the same calibration with better scores. Third, a Monte Carlo study calibrated to the estimates shows that, with six years of daily data, the jump and skewed-$t$ mechanisms can be distinguished, that the empirical evidence matches what a skewed-$t$ GARCH process would generate, and that jump parameters are poorly identified even when jumps are present. The analysis is fully reproducible; code and data are publicly available (Section~\ref{sec:data-availability}).
+
+The sample also matters. Including the 1994--95 Tequila crisis, when the peso moved by up to \maxFull\% in a day after the end of the managed band, raises the sample excess kurtosis from \kurtMain{} to \kurtFull{} and distorts jump estimates for decades of forecasts. Results from such samples, including those of an earlier version of this study, mostly reflect that one episode.
+
+Section~\ref{sec:lit} reviews related work. Section~\ref{sec:data} describes the data. Section~\ref{sec:models} presents the models and estimation, and Section~\ref{sec:eval} the forecasting design. Section~\ref{sec:results} reports the empirical results, Section~\ref{sec:app} an application to an importer's currency risk, Section~\ref{sec:robust} robustness checks and Section~\ref{sec:mc} the Monte Carlo evidence. Section~\ref{sec:conclusion} concludes.
+
+\section{Related literature}\label{sec:lit}
+
+\citet{merton1976} introduced the jump-diffusion model with normally distributed jump sizes; \citet{kou2002} proposed double-exponential jumps, which allow different sizes and frequencies for upward and downward moves. Both are finite-activity exponential Lévy models \citep{sato1999,conttankov2004}. For daily data, a common simplification allows at most one jump per period \citep{balltorous1983}.
+
+In foreign exchange, \citet{jorion1988} found significant jumps in currency returns even after allowing for ARCH effects, and \citet{bates1996} documented jumps implicit in Deutsche mark options. \citet{chanmaheu2002} and \citet{maheumccurdy2004} developed GARCH models with time-varying jump intensity. For emerging-market currencies, \citet{varma1999} argued that the Indian rupee alternates calm periods with abrupt changes that a GARCH model with symmetric heavy tails cannot capture. High-frequency studies detect frequent intraday jumps in the peso, the Turkish lira and the South African rand \citep{serdengecti2021,uzun2023}, typically using the test of \citet{leemykland2008}. For the peso specifically, \citet{novak2007} estimated VaR and ES from heavy-tailed dependent data, \citet{gutierrezortiz2013} applied extreme value theory to peso-adjusted equity returns, and \citet{rodriguez2014} proposed an early-warning indicator based on the Hurst coefficient and the $\alpha$-stable index. To our knowledge, no study has compared Lévy jump-diffusion and asymmetric GARCH models for peso tail risk with joint VaR--ES scoring and ES backtests.
+
+Asymmetric conditional distributions are an established alternative to jumps. \citet{hansen1994} introduced the skewed Student-$t$ density used here. Forecast comparison relies on proper scoring rules \citep{gneitingraftery2007}. Because ES alone is not elicitable, VaR and ES must be evaluated jointly \citep{fisslerziegel2016}; we use the FZ0 loss of \citet{pattonziegelchen2019}. For ES backtesting we follow \citet{duescanciano2017}.
+
+\section{Data}\label{sec:data}
+
+We use the FRED series DEXMXUS, Mexican pesos per U.S.\ dollar at noon in New York, published by the Federal Reserve Board \citep{fred}. The file, downloaded on 24 October 2026, has \rawRows{} daily rows, of which \rawMissing{} are empty on U.S.\ holidays. Missing days are dropped, and the return on day $t$ is
+\begin{equation}
+r_t = 100 \log (S_t / S_{t-1}),
+\end{equation}
+where $S_t$ is the $t$-th available quotation; positive values are peso depreciations. About \gapShare\% of returns span more than one calendar day (weekends and holidays); following standard practice we treat each return as one period.
+
+The main sample starts on 2 January 1996. Mexico abandoned its exchange-rate band in December 1994, and the following year combined a regime change with an extreme crisis (Figure~\ref{fig:returns}). Table~\ref{tab:desc} shows how much these observations dominate: excluding them reduces the excess kurtosis from \kurtFull{} to \kurtMain{} and the skewness from \skewFull{} to \skewMain. Section~\ref{sec:robust} shows how including the earlier data changes the conclusions. The main sample ends on \sampleEnd{} and has \nMain{} returns. Returns are positively skewed and strongly leptokurtic; Ljung--Box tests reject the absence of autocorrelation in squared returns ($p<0.001$), a sign of volatility clustering.
+
+\begin{table}[t]
+\centering\small
+\caption{Descriptive statistics of daily USD/MXN log changes (\%).}\label{tab:desc}
+\input{tables/tab_descriptive.tex}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/fig_returns.pdf}
+\caption{Daily USD/MXN log changes, November 1993 to October 2026. The shaded orange area (pre-1996) is excluded from the main sample; blue bands mark the stress episodes analysed in Section~\ref{sec:results}; the dashed line marks the first out-of-sample forecast.}\label{fig:returns}
+\end{figure}
+
+\section{Models and estimation}\label{sec:models}
+
+\subsection{Models with independent increments}
+
+If the log exchange rate follows a Lévy process $X_t$, daily returns are independent and identically distributed with characteristic function $\E[e^{iuX_1}] = \exp\{\psi(u)\}$. We consider four cases.
+
+\paragraph{Gaussian and Student-$t$.} Brownian motion with drift gives $r_t \sim N(\mu,\sigma^2)$. As a heavy-tailed benchmark without jumps we use a location-scale Student-$t$ distribution with $\nu$ degrees of freedom.
+
+\paragraph{Merton.} The Merton process is $X_t = bt + \sigma W_t + \sum_{j=1}^{N_t} Y_j$, where $N_t$ is a Poisson process with intensity $\lambda$ and $Y_j \sim N(\mu_J,\delta_J^2)$ are independent jump sizes. Conditioning on the number of jumps gives the exact daily density
+\begin{equation}\label{eq:merton}
+f(r) = \sum_{k=0}^{\infty} \frac{e^{-\lambda}\lambda^k}{k!}\,\phi\!\left(r;\, b + k\mu_J,\; \sigma^2 + k\delta_J^2\right),
+\end{equation}
+with $\phi(\cdot\,; m, v)$ the normal density with mean $m$ and variance $v$. We truncate the sum at $k=30$; for the estimated intensities the omitted Poisson mass is below machine precision. A positive $\mu_J$ makes large depreciations more likely than large appreciations.
+
+\paragraph{Kou.} In the double-exponential model \citep{kou2002}, a jump is upward with probability $p$ and size $\sim \mathrm{Exp}(\eta_+)$, and downward with probability $1-p$ and size $\sim \mathrm{Exp}(\eta_-)$. We allow at most one jump per day, occurring with probability $q$ \citep{balltorous1983}. The density is then a mixture of a normal and two exponentially modified Gaussian densities,
+\begin{equation}\label{eq:kou}
+f(r) = (1-q)\,\phi(r; b,\sigma^2) + q\,p\,g_+(r) + q\,(1-p)\,g_-(r),
+\end{equation}
+where $g_+(r) = \eta_+ \exp\{\eta_+(b-r) + \eta_+^2\sigma^2/2\}\,\Phi\big((r-b-\eta_+\sigma^2)/\sigma\big)$, $\Phi$ is the standard normal distribution function, and $g_-$ is the mirror image with rate $\eta_-$. The distribution functions of both models are available in closed form, which we use for quantiles and probability integral transforms.
+
+\subsection{GARCH models}
+
+To allow volatility clustering, we write $r_t = \mu + \sqrt{h_t}\, z_t + J_t$, where $J_t$ is a jump term (absent in the GARCH-$t$ and GARCH-skew-$t$ models) and
+\begin{equation}\label{eq:garch}
+h_t = \omega + \alpha\, \varepsilon_{t-1}^2 + \beta\, h_{t-1}, \qquad \varepsilon_t = r_t - \E_{t-1}[r_t],
+\end{equation}
+with $\omega>0$, $\alpha,\beta\ge 0$ and $\alpha+\beta<1$. The recursion uses the total innovation, so a jump raises volatility on subsequent days, in the spirit of the ARCH-jump model of \citet{jorion1988}. The four specifications are:
+\begin{itemize}
+\item \textbf{GARCH-$t$}: $z_t$ follows a Student-$t$ distribution standardised to unit variance \citep{bollerslev1987}.
+\item \textbf{GARCH-skew-$t$}: $z_t$ follows the standardised skewed-$t$ distribution of \citet{hansen1994}, with tail parameter $\nu$ and asymmetry parameter $\varsigma\in(-1,1)$; $\varsigma>0$ gives a heavier right (depreciation) tail.
+\item \textbf{GARCH-Merton}: $z_t\sim N(0,1)$ and $J_t$ is a compound Poisson sum with intensity $\lambda$ and $N(\mu_J,\delta_J^2)$ jumps; the conditional density is \eqref{eq:merton} with $\sigma^2$ replaced by $h_t$.
+\item \textbf{GARCH-Kou}: $z_t\sim N(0,1)$ and $J_t$ is a Kou jump; the conditional density is \eqref{eq:kou} with $\sigma^2$ replaced by $h_t$.
+\end{itemize}
+The variance recursion starts from the sample variance of the estimation window.
+
+\subsection{Estimation}
+
+All parameters are estimated by maximum likelihood with the L-BFGS-B algorithm under box constraints, from several deterministic starting values; we keep the solution with the highest likelihood. Standard errors are robust quasi-maximum-likelihood (sandwich) standard errors \citep{bollerslevwooldridge1992} computed from numerical derivatives. Estimates are physical-measure parameters of the return distribution and should not be read as risk-neutral parameters implied by option prices.
+
+Table~\ref{tab:insample} reports full-sample estimates. Volatility is highly persistent ($\alpha+\beta = \gtPersist$ in the GARCH-$t$ model). The skewed-$t$ GARCH model raises the log-likelihood by \llGainSkew{} points over GARCH-$t$ with one extra parameter, and its asymmetry parameter $\varsigma = \gsLam$ (s.e.\ \gsLamSe) confirms a heavier depreciation tail. Adding jumps to a Gaussian GARCH model is much less effective: the GARCH-Merton log-likelihood is \llLossMerton{} points \emph{below} that of GARCH-$t$ despite two extra parameters, and GARCH-Kou gains only \llGainKou{} points with three extra parameters. The jump estimates themselves are revealing. The GARCH-Merton intensity $\hat\lambda=\gmLambda$ implies a jump every \gmJumpEvery{} trading days on average, far more often than any reasonable count of discontinuous news; and the GARCH-Kou model estimates that \gkPup{} of jumps are depreciations, with similar mean sizes in both directions (\gkMeanUp\% and \gkMeanDn\%). The jump components act as a frequent, asymmetric mixture that thickens the right tail, rather than as rare discontinuities.
+
+\begin{table}[t]
+\centering\small
+\caption{Full-sample maximum-likelihood estimates, January 1996 -- October 2026 ($n=\nMain$). Robust QMLE standard errors in parentheses. $k$: number of parameters.}\label{tab:insample}
+\resizebox{\linewidth}{!}{\input{tables/tab_insample.tex}}
+\end{table}
+
+\section{Forecasting design and evaluation}\label{sec:eval}
+
+\paragraph{Rolling forecasts.} Each model is estimated on a rolling window of \windowLen{} returns (about six years) and re-estimated every \refitEvery{} returns (about one month). Between re-estimations, parameters are fixed, while GARCH variances are updated daily with observed returns, so the forecast for day $t$ uses information up to $t-1$ only. The first forecast is for \oosStart{}, giving \oosN{} out-of-sample days that cover all five stress episodes. To reduce the cost of repeated estimation, each re-estimation starts from the previous estimate and one default value, and every twelfth uses the full set of starting values.
+
+\paragraph{Risk measures.} We focus on the upper tail, which measures the risk of peso depreciation for anyone who must buy dollars. For $\alpha\in\{0.95,0.99\}$, $\VaR_{\alpha,t} = F_{t}^{-1}(\alpha)$ and $\ES_{\alpha,t} = (1-\alpha)^{-1}\int_\alpha^1 F_t^{-1}(u)\,du$ \citep{rockafellaruryasev2002}, where $F_t$ is the one-step predictive distribution. Quantiles are computed by bisection on the closed-form distribution functions, and ES by numerical integration of the survival function.
+
+\paragraph{Scoring.} Density forecasts are compared with the negative log score $-\log f_t(r_t)$, a strictly proper scoring rule \citep{gneitingraftery2007}. VaR and ES are compared jointly with the FZ0 loss of \citet{pattonziegelchen2019}, which is strictly consistent for the pair \citep{fisslerziegel2016}. Applied to the upper tail through $x_t=-r_t$, $v_t=-\VaR_{\alpha,t}$, $e_t=-\ES_{\alpha,t}$ and $a=1-\alpha$,
+\begin{equation}
+L_{\mathrm{FZ0}}(x_t, v_t, e_t) = -\frac{1}{a\,e_t}\,\mathbf{1}\{x_t\le v_t\}\,(v_t-x_t) + \frac{v_t}{e_t} + \log(-e_t) - 1.
+\end{equation}
+
+\paragraph{Backtests.} For each model and level we report the number of VaR exceedances, the unconditional coverage test of \citet{kupiec1995} (UC) and the conditional coverage test of \citet{christoffersen1998} (CC). Expected Shortfall is backtested with the unconditional test of \citet{duescanciano2017}: with $u_t = 1-F_t(r_t)$, the cumulative violation $H_t = (a-u_t)a^{-1}\mathbf{1}\{u_t\le a\}$ has mean $a/2$ and variance $a(1/3-a/4)$ under correct specification.
+
+\paragraph{Model comparison.} Pairwise Diebold--Mariano tests compare each model with GARCH-$t$, using Newey--West standard errors with 10 lags \citep{dieboldmariano1995,neweywest1987}. The Model Confidence Set (MCS) of \citet{hansenlundenason2011} identifies the models that cannot be rejected as best at the 10\% level, using the range statistic and a stationary block bootstrap \citep{politisromano1994} with \mcsReps{} replications and average block length 10.
+
+\section{Empirical results}\label{sec:results}
+
+\subsection{Calibration}
+
+Table~\ref{tab:oos} reports the coverage and ES backtests. With \oosN{} forecasts, \expNinetyFive{} and \expNinetyNine{} exceedances are expected at the 95\% and 99\% levels. We see three patterns.
+
+First, every model with independent increments fails the conditional coverage test at both levels ($p<0.001$). Their exceedances arrive in clusters during turbulent periods, which a constant-volatility model cannot anticipate. The i.i.d.\ Merton and Kou models obtain nearly correct \emph{unconditional} 99\% coverage (\excNNMerton{} and \excNNKou{} exceedances) and pass the unconditional ES test, but only because their constant VaR is wide enough on average. The count is right, but the timing is not.
+
+Second, the symmetric GARCH-$t$ model under-predicts depreciation risk. It records \excNNGarchT{} exceedances of the 99\% VaR and \excNFGarchT{} of the 95\% VaR, and fails all three tests at both levels.
+
+Third, three models with an asymmetric tail pass all 99\% tests: GARCH-skew-$t$ (\excNNGarchSkewT{} exceedances, CC $p=\pccNNGarchSkewT$, ES $p=\puesNNGarchSkewT$), GARCH-Kou (\excNNGarchKou; CC $p=\pccNNGarchKou$) and GARCH-Merton (\excNNGarchMerton; CC $p=\pccNNGarchMerton$). At the 95\% level, GARCH-skew-$t$ is the only GARCH model that passes the unconditional coverage and ES tests, and all models fail conditional coverage, a reminder that a GARCH(1,1) recursion does not capture all the clustering of moderate depreciations. The probability integral transforms in Figure~\ref{fig:pit} agree: GARCH-$t$ places too little mass in the extreme right tail, whereas the asymmetric models produce nearly uniform transforms.
+
+\begin{table}[t]
+\centering\small
+\caption{Out-of-sample calibration, \oosStart{} -- \sampleEnd{} ($n=\oosN$). NLS: mean negative log score. Exc.: VaR exceedances (expected \expNinetyFive{} and \expNinetyNine). UC: Kupiec unconditional coverage $p$-value. CC: Christoffersen conditional coverage $p$-value. ES: Du--Escanciano unconditional ES backtest $p$-value.}\label{tab:oos}
+\resizebox{\linewidth}{!}{\input{tables/tab_oos.tex}}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/fig_pit.pdf}
+\caption{Histograms of out-of-sample probability integral transforms $F_t(r_t)$. A correctly specified model gives a uniform histogram (horizontal line). Mass near 1 corresponds to depreciations larger than predicted.}\label{fig:pit}
+\end{figure}
+
+\subsection{Scores and model comparison}
+
+Calibration tests can accept several models; scoring rules rank them. Table~\ref{tab:compare} shows that volatility clustering is by far the most important feature. Every model with independent increments has a significantly worse log score than GARCH-$t$ (Diebold--Mariano $t$-statistics between \dmtNlsGaussian{} and \dmtNlsStudentT) and a significantly worse FZ0 loss.
+
+Among GARCH models, jumps do not improve the scores. GARCH-Merton and GARCH-Kou have slightly \emph{higher} log scores than GARCH-$t$ (DM $p=\dmpNlsGarchMerton$ and $\dmpNlsGarchKou$) and statistically indistinguishable FZ0 losses at both levels. They fix coverage at 99\% but do not produce more accurate VaR--ES pairs. In contrast, GARCH-skew-$t$ improves on GARCH-$t$ for the log score ($t=\dmtNlsGarchSkewT$, $p=\dmpNlsGarchSkewT$) and the 95\% FZ0 loss ($t=\dmtFzNineFiveGarchSkewT$, $p=\dmpFzNineFiveGarchSkewT$), with a gain of borderline significance at 99\% ($p=\dmpFzNineNineGarchSkewT$). It is the only model in the 10\% MCS for the log score and the 95\% FZ0 loss. For the 99\% FZ0 loss, which is based on few observations, the MCS retains the four GARCH models but GARCH-skew-$t$ ranks first.
+
+\begin{table}[t]
+\centering\small
+\caption{Out-of-sample scores. Mean: average loss (lower is better). DM $t$: Diebold--Mariano statistic for the loss difference with GARCH-$t$ (negative: better than GARCH-$t$), Newey--West standard errors with 10 lags. MCS $p$: Model Confidence Set $p$-value; bold: model in the 10\% MCS.}\label{tab:compare}
+\resizebox{\linewidth}{!}{\input{tables/tab_compare.tex}}
+\end{table}
+
+Figure~\ref{fig:cumloss} shows how these differences accumulate. The skewed-$t$ model gains steadily against GARCH-$t$, with no single episode responsible. The jump models track GARCH-$t$ closely until the 2008 crisis and fall behind gradually afterwards; their losses are spread over many ordinary days rather than concentrated in the stress episodes.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/fig_cumloss.pdf}
+\caption{Cumulative out-of-sample loss differences relative to GARCH-$t$. A declining line indicates that the model outperforms GARCH-$t$. Blue bands mark stress episodes.}\label{fig:cumloss}
+\end{figure}
+
+\subsection{Stress episodes and time variation}
+
+Table~\ref{tab:events} counts 99\% VaR exceedances in the five stress episodes. Models with independent increments fail badly in the 2008 crisis and the COVID-19 shock (for example, 17--27 exceedances in 135 days during the financial crisis, against 1.35 expected), because their VaR does not respond to the rise in volatility (Figure~\ref{fig:var}). All GARCH models adapt within days and have similar counts in each episode; the episodes do not discriminate between jumps and asymmetry.
+
+\begin{table}[t]
+\centering\small
+\caption{Exceedances of the 99\% VaR during stress episodes. Days: out-of-sample days in the episode. Max $r_t$: largest daily depreciation (\%). Best NLS: model with the lowest mean negative log score in the episode.}\label{tab:events}
+\resizebox{\linewidth}{!}{\input{tables/tab_events.tex}}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/fig_var.pdf}
+\caption{One-day 99\% VaR forecasts and observed returns. Top: full out-of-sample period. Bottom: October 2019 -- September 2020.}\label{fig:var}
+\end{figure}
+
+The rolling jump estimates are unstable (Figure~\ref{fig:params}). The GARCH-Merton intensity ranges from almost zero to more than one jump every two days, and jump sizes change abruptly between neighbouring windows. The share of upward jumps in the GARCH-Kou model stays above one half in almost every window, often close to one. This instability is consistent with the large sampling error of jump parameters documented in Section~\ref{sec:mc}; the jump parameters are better interpreted as flexible shape parameters than as a structural description of news arrival.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/fig_parameters.pdf}
+\caption{Rolling estimates of jump parameters at each monthly re-estimation (window of \windowLen{} returns).}\label{fig:params}
+\end{figure}
+
+\section{Application: an importer's currency risk}\label{sec:app}
+
+To translate these differences into money, consider a Mexican importer that owes USD 1 million and holds pesos. If the peso depreciates by $r_t$ percent, the peso cost of the payable rises by $10^6\, S_{t-1}(e^{r_t/100}-1)$. Table~\ref{tab:app} reports the average one-day 99\% VaR and ES of this exposure, the number of days on which the loss exceeded the VaR, and the total loss in excess of the ES forecast, summed over the out-of-sample period.
+
+\begin{table}[t]
+\centering\small
+\caption{One-day risk of a USD 1 million payable, in thousands of Mexican pesos, \oosStart{} -- \sampleEnd. Mean excess: average loss in excess of VaR on breach days. Shortfall beyond ES: sum over all days of losses in excess of the ES forecast.}\label{tab:app}
+\input{tables/tab_app.tex}
+\end{table}
+
+Apart from the Gaussian model, the models with independent increments demand the largest average ES buffers (about MXN \appEsMerton{} thousand for Merton), yet leave the largest uncovered losses, because their buffers are too large in calm periods and too small in crises. Among GARCH models, the skewed-$t$ model asks for a moderately larger buffer than GARCH-$t$ (MXN \appEsGarchSkewT{} versus \appEsGarchT{} thousand on average) and in exchange has far fewer breaches (\excNNGarchSkewT{} against \excNNGarchT) and the smallest total shortfall beyond ES of all models (MXN \appShortGarchSkewT{} thousand, against \appShortGarchT{} thousand for GARCH-$t$). The jump models also reduce the number of breaches, but the losses on breach days are larger, and their total shortfall beyond ES (MXN \appShortGarchMerton{} and \appShortGarchKou{} thousand) exceeds even that of GARCH-$t$. For a treasurer, the asymmetric GARCH model buys better protection against depreciation at a modest cost in average reserves.
+
+\section{Robustness}\label{sec:robust}
+
+\input{robustness_text.tex}
+
+\section{Monte Carlo evidence}\label{sec:mc}
+
+\input{montecarlo_text.tex}
+
+\section{Conclusions}\label{sec:conclusion}
+
+Lévy jump-diffusion models are a natural way to describe abrupt depreciations of the Mexican peso. Their forecasting value, however, depends on what they are compared with. Against models with independent increments, every model with volatility clustering wins decisively; a jump component cannot substitute for volatility dynamics. Against a symmetric GARCH-$t$ model, adding Merton or Kou jumps corrects the under-prediction of extreme depreciations, but it does so by making the conditional distribution asymmetric: the estimated jumps are frequent and predominantly upward. A GARCH model with skewed-$t$ innovations captures the same asymmetry with fewer parameters, obtains the best density and VaR--ES scores, passes all 99\% backtests and is the only model retained in the Model Confidence Set for the log score. Simulations calibrated to the estimates show that the two mechanisms leave different fingerprints in samples of realistic length, and the fingerprint in the peso data is that of asymmetric heavy tails rather than of compound Poisson jumps. Even when jumps are present, their intensity and size are estimated imprecisely, so economic interpretations of estimated jump parameters should be cautious.
+
+For risk management, the practical lesson is to model the asymmetry of currency risk directly. A symmetric heavy-tailed model, even with volatility clustering, systematically under-states the risk of peso depreciation. The study has limitations that suggest extensions: it uses constant jump intensities and a GARCH(1,1) recursion, a daily frequency at which jumps are hard to identify, and a single currency. Time-varying jump intensities \citep{chanmaheu2002,maheumccurdy2004}, asymmetric volatility responses, intraday data with nonparametric jump tests \citep{leemykland2008}, and option-implied information \citep{bates1996} would be useful extensions, and the same design can be applied to other emerging-market currencies.
+
+\section*{Data and code availability}\label{sec:data-availability}
+\phantomsection
+The data are the publicly available FRED series DEXMXUS \citep{fred}, downloaded as a CSV file on 24 October 2026 and used without modification. The exact file is included in the replication package. Its SHA-256 checksum is \texttt{\seqsplit{60c8c775e7308e070bad43c65386f7b3855d65410101ba496f15c5df85187738}}, and the code checks it before every run, so any later revision of the FRED series is detected. All results, tables, figures and numbers quoted in the text are produced by the replication package, which runs with a single command (\texttt{python scripts/run\_all.py}) and is available at \authorcheck{[repository URL and Zenodo DOI to be added]}.
+
+\section*{Statements and declarations}
+\noindent\textbf{Funding.} \authorcheck{This research received no specific grant from any funding agency.}\\
+\textbf{Competing interests.} The author declares no competing interests.\\
+\textbf{Use of generative AI.} \authorcheck{Generative AI tools (OpenAI ChatGPT and Anthropic Claude) were used to assist with code development, drafting and editing. The author designed the study, verified the code, data and results, and takes full responsibility for the content.}
+
+\bibliographystyle{unsrtnat}
+\bibliography{references}
+
+\end{document}

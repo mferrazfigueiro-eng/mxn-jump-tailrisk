@@ -1,0 +1,14 @@
+\begin{tabular}{lrrrrrrrrr}
+\toprule
+Model & \multicolumn{3}{c}{Negative log score} & \multicolumn{3}{c}{FZ0 loss, 95\%} & \multicolumn{3}{c}{FZ0 loss, 99\%} \\\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10} & Mean & DM $t$ & MCS $p$ & Mean & DM $t$ & MCS $p$ & Mean & DM $t$ & MCS $p$ \\
+\midrule
+Gaussian & 1.1136 & +2.94 & 0.016 & 0.5944 & +3.05 & 0.017 & 1.4078 & +2.55 & 0.080 \\
+Student-t & 0.9867 & +6.37 & 0.000 & 0.6098 & +3.30 & 0.015 & 1.2578 & +2.42 & 0.089 \\
+Merton & 1.0048 & +4.49 & 0.002 & 0.5906 & +3.45 & 0.011 & 1.2204 & +2.55 & 0.063 \\
+Kou & 0.9948 & +5.20 & 0.000 & 0.5865 & +3.40 & 0.012 & 1.1845 & +2.58 & 0.055 \\
+GARCH-t & 0.9036 & -- & 0.016 & 0.3838 & -- & 0.034 & 0.7697 & -- & \textbf{0.106} \\
+GARCH-skew-t & 0.8994 & -2.91 & \textbf{1.000} & 0.3717 & -2.60 & \textbf{1.000} & 0.7473 & -1.87 & \textbf{1.000} \\
+GARCH-Merton & 0.9069 & +1.29 & 0.016 & 0.3828 & -0.18 & 0.049 & 0.7916 & +1.06 & \textbf{0.106} \\
+GARCH-Kou & 0.9059 & +1.00 & 0.016 & 0.3835 & -0.06 & 0.049 & 0.7886 & +0.88 & \textbf{0.106} \\
+\bottomrule
+\end{tabular}

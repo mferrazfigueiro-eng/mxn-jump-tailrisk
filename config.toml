@@ -1,0 +1,38 @@
+# Central configuration for every result reported in the article.
+# Change values here (never inside the code) and rerun `python scripts/run_all.py`.
+
+[data]
+raw_csv = "data/raw/DEXMXUS.csv"
+sha256 = "60c8c775e7308e070bad43c65386f7b3855d65410101ba496f15c5df85187738"
+# Main sample starts after the December 1994 float and the 1995 Tequila-crisis peak.
+sample_start = "1996-01-02"
+sample_end = "2026-10-16"
+
+[forecast]
+models = ["Gaussian", "Student-t", "Merton", "Kou", "GARCH-t", "GARCH-skew-t", "GARCH-Merton", "GARCH-Kou"]
+window = 1500          # rolling estimation window (consecutive quotations, about six years)
+refit_every = 21       # re-estimate parameters every 21 quotations (about one month)
+alphas = [0.95, 0.99]  # upper-tail VaR / ES confidence levels (peso depreciation)
+seed = 20261115
+
+[robustness]
+# Each entry reruns the full forecasting exercise with one setting changed.
+full_sample_start = "1993-11-09"   # include the 1994-95 crisis in the history
+alt_window = 1000
+alt_refit_every = 5
+
+[evaluation]
+hac_lags = 10
+mcs_size = 0.10
+mcs_reps = 2000
+mcs_block = 10
+
+[montecarlo]
+replications = 200
+n_train = 1500
+n_test = 500
+seed = 20261116
+dgps = ["Gaussian", "Merton", "GARCH-t", "GARCH-skew-t", "GARCH-Merton"]
+
+[application]
+exposure_usd = 1000000     # illustrative USD payable held by a Mexican importer

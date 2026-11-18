@@ -1,0 +1,14 @@
+\begin{tabular}{lrrrrp{0.45\linewidth}}
+\toprule
+Model & $k$ & log $L$ & AIC & BIC & Estimates (robust s.e.) \\
+\midrule
+Gaussian & 2 & -8,067.5 & 16,139.1 & 16,153.0 & \parbox[t]{0.45\linewidth}{\raggedright\scriptsize $\mu$=0.011 (0.008), $\sigma$=0.688 (0.014)} \\
+Student-t & 3 & -7,226.3 & 14,458.7 & 14,479.6 & \parbox[t]{0.45\linewidth}{\raggedright\scriptsize $\nu$=3.365 (0.138), $\mu$=-0.019 (0.006), $s$=0.450 (0.007)} \\
+Merton & 5 & -7,246.6 & 14,503.2 & 14,538.0 & \parbox[t]{0.45\linewidth}{\raggedright\scriptsize $b$=-0.044 (0.009), $\sigma$=0.419 (0.020), $\lambda$=0.306 (0.066), $\mu_J$=0.181 (0.035), $\delta_J$=0.934 (0.088)} \\
+Kou & 6 & -7,218.8 & 14,449.5 & 14,491.2 & \parbox[t]{0.45\linewidth}{\raggedright\scriptsize $b$=-0.081 (0.018), $\sigma$=0.381 (0.022), $q$=0.473 (0.072), $p$=0.653 (0.047), $\eta_+$=1.687 (0.115), $\eta_-$=1.811 (0.177)} \\
+GARCH-t & 5 & -6,591.9 & 13,193.8 & 13,228.5 & \parbox[t]{0.45\linewidth}{\raggedright\scriptsize $\mu$=-0.019 (0.006), $\omega$=0.009 (0.002), $\alpha$=0.128 (0.017), $\beta$=0.859 (0.018), $\nu$=6.586 (0.480)} \\
+GARCH-skew-t & 6 & -6,546.8 & 13,105.5 & 13,147.2 & \parbox[t]{0.45\linewidth}{\raggedright\scriptsize $\mu$=-0.004 (0.006), $\omega$=0.008 (0.002), $\alpha$=0.120 (0.016), $\beta$=0.866 (0.018), $\nu$=7.035 (0.527), $\varsigma$=0.154 (0.016)} \\
+GARCH-Merton & 7 & -6,602.7 & 13,219.5 & 13,268.2 & \parbox[t]{0.45\linewidth}{\raggedright\scriptsize $\mu$=-0.042 (0.010), $\omega$=0.004 (0.002), $\alpha$=0.108 (0.016), $\beta$=0.851 (0.023), $\lambda$=0.135 (0.051), $\mu_J$=0.304 (0.072), $\delta_J$=0.706 (0.113)} \\
+GARCH-Kou & 8 & -6,591.5 & 13,199.0 & 13,254.6 & \parbox[t]{0.45\linewidth}{\raggedright\scriptsize $\mu$=-0.068 (0.019), $\omega$=0.003 (0.002), $\alpha$=0.106 (0.016), $\beta$=0.855 (0.024), $q$=0.223 (0.082), $p$=0.835 (0.069), $\eta_+$=2.195 (0.339), $\eta_-$=2.172 (0.512)} \\
+\bottomrule
+\end{tabular}

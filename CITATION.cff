@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this code or data package, please cite the article and this repository."
+title: "Replication package: Jumps or volatility clustering? Exchange-rate tail risk of the Mexican peso"
+authors:
+  - family-names: "Ferraz Figueiró"
+    given-names: "Michele"
+    orcid: "https://orcid.org/0000-0002-6996-0048"
+    affiliation: "Tecnológico de Monterrey"
+version: "1.0.0"
+date-released: "2026-11-15"
+license: MIT
+# After depositing on Zenodo, add:  doi: "10.5281/zenodo.XXXXXXX"
